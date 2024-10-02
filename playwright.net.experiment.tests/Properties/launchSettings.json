@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "playwright.net.experiment.tests": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
