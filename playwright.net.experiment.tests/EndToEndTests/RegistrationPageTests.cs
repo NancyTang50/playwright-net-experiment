@@ -1,55 +1,48 @@
 using Microsoft.Playwright;
+using Microsoft.Playwright.NUnit;
 
 namespace playwright.net.experiment.tests.EndToEndTests;
 
-[TestFixture("chromium", false)]
-[TestFixture("firefox", false)]
-[TestFixture("webkit", false)]
-public class RegistrationPageTests
+public class RegistrationPageTests : PageTest
 {
-    private IPlaywright _playwright;
-    private IBrowser _browser;
-    private IBrowserContext _browserContext;
-    private IPage _page;
     private IPage _registrationPage;
-
-    private string _browserType;
-    private bool _isRunningHeadless;
-
-    public RegistrationPageTests(string browserType, bool isRunningHeadless)
-    {
-        _browserType = browserType;
-        _isRunningHeadless = isRunningHeadless;
-    }
 
     [SetUp]
     public async Task Setup()
     {
-        _playwright = await Playwright.CreateAsync();
-        _browser = await Browser.LaunchBrowserAsync(_playwright, _browserType, _isRunningHeadless);
-        _browserContext = await _browser.NewContextAsync();
-        _page = await _browserContext.NewPageAsync();
-
-        await _page.GotoAsync("https://cito.nl/");
-        await _page.GetByRole(AriaRole.Link, new() { Name = "Bestellen" }).ClickAsync();
-
-        _registrationPage = await _page.Context.RunAndWaitForPageAsync(async () =>
+        await Context.Tracing.StartAsync(new()
         {
-            await _page.GetByRole(AriaRole.Link, new() { Name = "Aanvragen bestelaccount" }).ClickAsync();
+            Title = $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}",
+            Screenshots = true,
+            Snapshots = true,
+            Sources = true
+        });
+
+        await Page.GotoAsync("https://cito.nl/");
+        await Page.GetByRole(AriaRole.Link, new() { Name = "Bestellen" }).ClickAsync();
+
+        _registrationPage = await Page.Context.RunAndWaitForPageAsync(async () =>
+        {
+            await Page.GetByRole(AriaRole.Link, new() { Name = "Aanvragen bestelaccount" }).ClickAsync();
         });
     }
 
     [Test]
     public async Task RegistrationPageShouldHaveTitle()
     {
-        var title = await _registrationPage.TitleAsync();
-        Assert.That(title, Is.EqualTo("Registreren"));
+        await Expect(_registrationPage).ToHaveTitleAsync("Registreren");
     }
 
     [TearDown]
     public async Task TearDown()
     {
-        await _browser.CloseAsync();
-        _playwright.Dispose();
+        await Context.Tracing.StopAsync(new()
+        {
+            Path = Path.Combine(
+                TestContext.CurrentContext.WorkDirectory,
+                "playwright-traces",
+                $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
+            )
+        });
     }
 }
