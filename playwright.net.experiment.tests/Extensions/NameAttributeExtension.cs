@@ -3,13 +3,13 @@ using NUnit.Framework.Internal;
 
 namespace playwright.net.experiment.tests.Extensions;
 
-internal class NameAttributeExtension : NUnitAttribute, IApplyToTest
+public class NameAttribute : NUnitAttribute, IApplyToTest
 {
     public string Name { get; set; }
 
     public string Description { get; set; }
 
-    public NameAttributeExtension(string name, string description) {
+    public NameAttribute(string name, string description) {
         Name = name;
         Description = description;
     }

@@ -1,5 +1,6 @@
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
+using playwright.net.experiment.tests.Extensions;
 
 namespace playwright.net.experiment.tests.EndToEndTests;
 
@@ -27,7 +28,10 @@ public class RegistrationPageTests : PageTest
         });
     }
 
-    [Test]
+    [Test, Name(
+        "Heeft registreren titel",
+        "Er wordt gekeken of de registreren titel heeft in de html"
+    )]
     public async Task RegistrationPageShouldHaveTitle()
     {
         await Expect(_registrationPage).ToHaveTitleAsync("Registreren");
