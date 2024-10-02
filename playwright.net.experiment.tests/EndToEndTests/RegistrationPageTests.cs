@@ -5,7 +5,7 @@ using playwright.net.experiment.tests.Setups;
 namespace playwright.net.experiment.tests.EndToEndTests;
 
 [TestFixture]
-public class RegistrationPageTests : GlobalSetUp
+internal class RegistrationPageTests : GlobalSetUp
 {
     private IPage _registrationPage;
 
