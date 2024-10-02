@@ -1,52 +1,54 @@
 using Microsoft.Playwright;
-using Microsoft.Playwright.NUnit;
 using playwright.net.experiment.tests.Extensions;
+using playwright.net.experiment.tests.Setups;
 
 namespace playwright.net.experiment.tests.EndToEndTests;
 
-public class RegistrationPageTests : PageTest
+[TestFixture]
+public class RegistrationPageTests : GlobalSetUp
 {
     private IPage _registrationPage;
 
     [SetUp]
-    public async Task Setup()
+    public async Task SetupRegistrationPage()
     {
-        await Context.Tracing.StartAsync(new()
-        {
-            Title = $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}",
-            Screenshots = true,
-            Snapshots = true,
-            Sources = true
-        });
-
-        await Page.GotoAsync("https://cito.nl/");
-        await Page.GetByRole(AriaRole.Link, new() { Name = "Bestellen" }).ClickAsync();
+        await Page
+            .GetByRole(AriaRole.Link, new() { Name = "Bestellen" })
+            .ClickAsync()
+            .ConfigureAwait(false);
 
         _registrationPage = await Page.Context.RunAndWaitForPageAsync(async () =>
         {
-            await Page.GetByRole(AriaRole.Link, new() { Name = "Aanvragen bestelaccount" }).ClickAsync();
+            await Page.GetByRole(AriaRole.Link, new() { Name = "Aanvragen bestelaccount" })
+                .ClickAsync()
+                .ConfigureAwait(false);
         });
     }
 
     [Test, Name(
         "Heeft registreren titel",
-        "Er wordt gekeken of de registreren titel heeft in de html"
+        "Als ik op de aanvragen bestelaccount pagina zit, wil ik dat er registreren titel in de html staat"
     )]
     public async Task RegistrationPageShouldHaveTitle()
     {
-        await Expect(_registrationPage).ToHaveTitleAsync("Registreren");
+        await Expect(_registrationPage)
+            .ToHaveTitleAsync("Registreren")
+            .ConfigureAwait(false);
     }
 
-    [TearDown]
-    public async Task TearDown()
+    [Test, Name(
+        "Geen lege formulier verzenden",
+        "Als ik op de aanvragen bestelaccount pagina zit, wil ik geen lege formulier verzenden"
+    )]
+    public async Task CannotSubmitEmptyForm()
     {
-        await Context.Tracing.StopAsync(new()
-        {
-            Path = Path.Combine(
-                TestContext.CurrentContext.WorkDirectory,
-                "playwright-traces",
-                $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
-            )
-        });
+        string expected = _registrationPage.Url;
+    
+        await _registrationPage.GetByRole(AriaRole.Button, new() {Name = "Verzenden" })
+            .ClickAsync()
+            .ConfigureAwait(false);
+   
+        await Expect(_registrationPage.GetByPlaceholder("99XX00")).ToBeFocusedAsync();
+        await Expect(_registrationPage).ToHaveURLAsync(expected);
     }
 }
