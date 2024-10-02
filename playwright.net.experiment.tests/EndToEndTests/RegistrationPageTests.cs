@@ -44,11 +44,18 @@ internal class RegistrationPageTests : GlobalSetUp
     {
         string expected = _registrationPage.Url;
     
-        await _registrationPage.GetByRole(AriaRole.Button, new() {Name = "Verzenden" })
+        await _registrationPage
+            .GetByRole(AriaRole.Button, new() {Name = "Verzenden" })
             .ClickAsync()
             .ConfigureAwait(false);
    
-        await Expect(_registrationPage.GetByPlaceholder("99XX00")).ToBeFocusedAsync();
-        await Expect(_registrationPage).ToHaveURLAsync(expected);
+        await Expect(_registrationPage
+            .GetByPlaceholder("99XX00"))
+            .ToBeFocusedAsync()
+            .ConfigureAwait(false);
+
+        await Expect(_registrationPage)
+            .ToHaveURLAsync(expected)
+            .ConfigureAwait(false);
     }
 }

@@ -16,7 +16,9 @@ public class GlobalSetUp : PageTest
             Sources = true
         });
 
-        await Page.GotoAsync("https://cito.nl/");
+        await Page
+            .GotoAsync("https://cito.nl/")
+            .ConfigureAwait(false);
     }
 
     [TearDown]
@@ -29,6 +31,7 @@ public class GlobalSetUp : PageTest
                 "playwright-traces",
                 $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
             )
-        });
+        })
+        .ConfigureAwait(false);
     }
 }

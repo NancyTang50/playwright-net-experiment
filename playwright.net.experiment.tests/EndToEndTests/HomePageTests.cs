@@ -13,7 +13,9 @@ internal class HomePageTests : GlobalSetUp
     )]
     public async Task HomePageShouldHaveTitle()
     {
-        await Expect(Page).ToHaveTitleAsync("Cito: toetsen, examens, volgsystemen, certificeringen en trainingen");
+        await Expect(Page)
+            .ToHaveTitleAsync("Cito: toetsen, examens, volgsystemen, certificeringen en trainingen")
+            .ConfigureAwait(false);
     }
 
     [Test, Name(
@@ -22,11 +24,14 @@ internal class HomePageTests : GlobalSetUp
     )]
     public async Task CanOpenBestellenPage()
     {
-        await Page.GetByRole(AriaRole.Link, new() { Name = "Bestellen"})
+        await Page
+            .GetByRole(AriaRole.Link, new() { Name = "Bestellen"})
             .ClickAsync()
             .ConfigureAwait(false);
 
-        await Expect(Page.GetByRole(AriaRole.Heading, new() { Name = "Productaanbod" })).ToBeVisibleAsync();
+        await Expect(Page
+            .GetByRole(AriaRole.Heading, new() { Name = "Productaanbod" }))
+            .ToBeVisibleAsync();
     }
 
     [Test, Name(
@@ -36,18 +41,22 @@ internal class HomePageTests : GlobalSetUp
     public async Task CanOpenRegistratiePage()
     {
         IPage registrationPage;
+        
         await Page
-        .GetByRole(AriaRole.Link, new() { Name = "Bestellen" })
-        .ClickAsync()
-        .ConfigureAwait(false);
+            .GetByRole(AriaRole.Link, new() { Name = "Bestellen" })
+            .ClickAsync()
+            .ConfigureAwait(false);
 
         registrationPage = await Page.Context.RunAndWaitForPageAsync(async () =>
         {
-            await Page.GetByRole(AriaRole.Link, new() { Name = "Aanvragen bestelaccount" })
+            await Page
+                .GetByRole(AriaRole.Link, new() { Name = "Aanvragen bestelaccount" })
                 .ClickAsync()
                 .ConfigureAwait(false);
         });
 
-        await Expect(registrationPage).ToHaveTitleAsync("Registreren");
+        await Expect(registrationPage)
+            .ToHaveTitleAsync("Registreren")
+            .ConfigureAwait(false);
     }
 }
