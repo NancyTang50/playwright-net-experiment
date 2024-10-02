@@ -1,4 +1,5 @@
 ﻿using Microsoft.Playwright.NUnit;
+using NUnit.Framework.Interfaces;
 
 namespace playwright.net.experiment.tests.Setups;
 
@@ -13,7 +14,7 @@ public class GlobalSetUp : PageTest
             Title = $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}",
             Screenshots = true,
             Snapshots = true,
-            Sources = true
+            Sources = true,
         });
 
         await Page
@@ -24,14 +25,16 @@ public class GlobalSetUp : PageTest
     [TearDown]
     public async Task TearDown()
     {
-        await Context.Tracing.StopAsync(new()
+        if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
         {
-            Path = Path.Combine(
-                TestContext.CurrentContext.WorkDirectory,
-                "playwright-traces",
-                $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
-            )
-        })
-        .ConfigureAwait(false);
+            await Context.Tracing.StopAsync(new()
+            {
+                Path = Path.Combine(
+                    TestContext.CurrentContext.WorkDirectory,
+                    "playwright-traces",
+                    $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
+                )
+            });
+        }
     }
 }
