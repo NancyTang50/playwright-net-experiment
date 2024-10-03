@@ -34,7 +34,7 @@ $env:BROWSER="webkit"
 dotnet test
 ```
 
-Voor meer informatie zie de officiële documentatie van [Playwright](https://playwright.dev/dotnet/docs/running-tests)
+Voor meer informatie zie de officiële documentatie van [Playwright running tests](https://playwright.dev/dotnet/docs/running-tests)
 
 ## Traceviewer commando
 Als er een test faalt worden er screenshots van gemaakt en omgezet traceviewer. 
@@ -44,3 +44,4 @@ Hieronder een voorbeeld:
 ```powershell
 pwsh bin/Debug/net8.0/playwright.ps1 show-trace bin/Debug/net8.0/playwright-traces/playwright.net.experiment.tests.EndToEndTests.RegistrationPageTests.RegistrationPageShouldHaveTitle.zip
 ```
+Voor meer informatie zie de officiële documentatie van [Playwright trace viewer]([https://playwright.dev/dotnet/docs/running-tests](https://playwright.dev/dotnet/docs/trace-viewer-intro))
