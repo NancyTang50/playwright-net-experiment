@@ -44,4 +44,4 @@ Hieronder een voorbeeld:
 ```powershell
 pwsh bin/Debug/net8.0/playwright.ps1 show-trace bin/Debug/net8.0/playwright-traces/playwright.net.experiment.tests.EndToEndTests.RegistrationPageTests.RegistrationPageShouldHaveTitle.zip
 ```
-Voor meer informatie zie de officiële documentatie van [Playwright trace viewer]([https://playwright.dev/dotnet/docs/running-tests](https://playwright.dev/dotnet/docs/trace-viewer-intro)
+Voor meer informatie zie de officiële documentatie van [Playwright trace viewer](https://playwright.dev/dotnet/docs/trace-viewer-intro)
