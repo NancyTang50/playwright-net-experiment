@@ -1,5 +1,6 @@
-# Playwright .NET demo project.
-Deze testen zijn herschreven vanuit het [playwright-demo-project](https://github.com/jeroenhuinink/playwright-demo)
+# Playwright .NET experiment project.
+Deze testen zijn herschreven vanuit het [playwright-demo-project](https://github.com/jeroenhuinink/playwright-demo) en het project draait op .NET 8
+<br>
 LET OP: De dockerfile werkt nog niet.
 ## Installatie
 De onderstaande commando moet eerst uitgevoerd worden, omdat het mogelijk is dat de 2e commando anders niet werkt
