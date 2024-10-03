@@ -37,7 +37,7 @@ dotnet test
 Voor meer informatie zie de officiële documentatie van [Playwright running tests](https://playwright.dev/dotnet/docs/running-tests)
 
 ## Traceviewer commando
-Als er een test faalt worden er screenshots van gemaakt en omgezet traceviewer. 
+Als er een test faalt worden er screenshots van gemaakt, zodat deze gebruikt worden door de trace viewer van Playwright. 
 Deze commando moet worden uitgevoerd om in de traceviewer van een specifieke test te komen.
 
 Hieronder een voorbeeld:
