@@ -29,4 +29,7 @@ $env:BROWSER="webkit"
 dotnet test
 ```
 
-Voor meer informatie zie de officiële documentatie van [Playwright]([https://www.google.com](https://playwright.dev/dotnet/docs/running-tests)
+Voor meer informatie zie de officiële documentatie van [Playwright](https://playwright.dev/dotnet/docs/running-tests)
+
+<br>
+LET OP: De dockerfile werkt nog niet
