@@ -12,14 +12,21 @@ Vervolgens moet deze commando uitgevoerd worden om daadwerkelijk de browsers te 
 Deze onderstaande test commando's zijn beschikbaar vanuit Playwright .NET
 
 Deze commando voert alle testen uit:
-`dotnet test`
+```powershell
+dotnet test
+```
 
-Deze commando voert elke test uit op de browser:
-`$env:HEADED="1"
-dotnet test`
+Deze powershell commando voert elke test uit op de browser:
+
+```powershell
+$env:HEADED="1"
+dotnet test
+```
 
 Deze commando voert de testen uit in een specifieke browser, in dit geval webkit.
+```powershell
 $env:BROWSER="webkit"
 dotnet test
+```
 
 Voor meer informatie zie de officiële documentatie van [playwright]("https://playwright.dev/dotnet/docs/running-tests")
