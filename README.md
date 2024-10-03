@@ -1,5 +1,5 @@
 # Playwright .NET demo project.
-Deze testen zijn herschreven vanuit het [playwright-demo-project]("https://github.com/jeroenhuinink/playwright-demo")
+Deze testen zijn herschreven vanuit het [playwright-demo-project](https://github.com/jeroenhuinink/playwright-demo)
 
 ## Installatie
 De onderstaande commando moet eerst uitgevoerd worden, omdat het mogelijk is dat de 2e commando anders niet werkt
@@ -29,4 +29,4 @@ $env:BROWSER="webkit"
 dotnet test
 ```
 
-Voor meer informatie zie de officiële documentatie van [playwright]("https://playwright.dev/dotnet/docs/running-tests")
+Voor meer informatie zie de officiële documentatie van [Playwright]([https://www.google.com](https://playwright.dev/dotnet/docs/running-tests)
